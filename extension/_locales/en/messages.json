@@ -1,0 +1,530 @@
+{
+  "extName": {
+    "message": "VideoGrab Pro"
+  },
+  "extDesc": {
+    "message": "Download videos from YouTube, TikTok, Instagram, Bilibili and more"
+  },
+  "statusChecking": {
+    "message": "Connecting to server..."
+  },
+  "statusRunning": {
+    "message": "Server running · yt-dlp"
+  },
+  "statusStopped": {
+    "message": "⚠️ Server not running — start server.py"
+  },
+  "tabDetect": {
+    "message": "Detect"
+  },
+  "tabDownload": {
+    "message": "Download"
+  },
+  "tabTasks": {
+    "message": "Tasks"
+  },
+  "tabPlaylist": {
+    "message": "Playlist"
+  },
+  "scanning": {
+    "message": "Scanning..."
+  },
+  "noVideos": {
+    "message": "No videos detected on this page"
+  },
+  "smartDownload": {
+    "message": "⬇ Smart Download"
+  },
+  "batchDownload": {
+    "message": "📋 Batch Download"
+  },
+  "selectFormat": {
+    "message": "🎯 Select Format"
+  },
+  "downloadBtn": {
+    "message": "⬇ Download"
+  },
+  "copyBtn": {
+    "message": "📋 Copy"
+  },
+  "urlPlaceholder": {
+    "message": "Paste video URL..."
+  },
+  "analyzeBtn": {
+    "message": "🔍 Analyze"
+  },
+  "downloadNow": {
+    "message": "⬇ Download Now"
+  },
+  "qualityBest": {
+    "message": "Best Quality"
+  },
+  "quality4k": {
+    "message": "4K"
+  },
+  "quality1080": {
+    "message": "1080p"
+  },
+  "quality720": {
+    "message": "720p"
+  },
+  "quality480": {
+    "message": "480p"
+  },
+  "qualityAudio": {
+    "message": "Audio Only"
+  },
+  "taskFilterAll": {
+    "message": "All"
+  },
+  "taskFilterActive": {
+    "message": "Active"
+  },
+  "taskFilterDone": {
+    "message": "Done"
+  },
+  "taskFilterError": {
+    "message": "Errors"
+  },
+  "selectTasks": {
+    "message": "✓ Select"
+  },
+  "clearHistory": {
+    "message": "🗑 Clear History"
+  },
+  "noTasks": {
+    "message": "No download tasks yet"
+  },
+  "statusDownloading": {
+    "message": "Downloading"
+  },
+  "statusPending": {
+    "message": "Pending"
+  },
+  "statusCompleted": {
+    "message": "Completed"
+  },
+  "statusError": {
+    "message": "Error"
+  },
+  "statusCancelled": {
+    "message": "Cancelled"
+  },
+  "cancelBtn": {
+    "message": "Cancel"
+  },
+  "openFolder": {
+    "message": "📂"
+  },
+  "deleteBtn": {
+    "message": "🗑"
+  },
+  "batchDelete": {
+    "message": "Delete Selected"
+  },
+  "batchCancel": {
+    "message": "Cancel Selected"
+  },
+  "selectAll": {
+    "message": "Select All"
+  },
+  "exitSelect": {
+    "message": "✕ Exit"
+  },
+  "playlistUrl": {
+    "message": "Playlist URL"
+  },
+  "analyzePl": {
+    "message": "🔍 Analyze Playlist"
+  },
+  "downloadSelected": {
+    "message": "⬇ Download Selected"
+  },
+  "removeWatermark": {
+    "message": "Remove Watermark"
+  },
+  "embedSubs": {
+    "message": "Embed Subtitles"
+  },
+  "installServer": {
+    "message": "Install server →"
+  },
+  "copied": {
+    "message": "✅ Link copied"
+  },
+  "serverRequired": {
+    "message": "⚠️ Please start the local server first"
+  },
+  "downloadStarted": {
+    "message": "✅ Download queued"
+  },
+  "downloadFailed": {
+    "message": "❌ Download failed"
+  },
+  "noUrl": {
+    "message": "⚠️ Please enter a URL"
+  },
+  "dialogConfirm": {
+    "message": "Confirm"
+  },
+  "dialogCancel": {
+    "message": "Cancel"
+  },
+  "deleteConfirmTitle": {
+    "message": "Delete records"
+  },
+  "deleteConfirmDesc": {
+    "message": "Only removes list entries. Video files are not affected."
+  },
+  "clearConfirmTitle": {
+    "message": "Clear all history"
+  },
+  "clearConfirmDesc": {
+    "message": "Clears all completed/failed records. Files are not affected."
+  },
+  "nothingToClear": {
+    "message": "No records to clear"
+  },
+  "noSelection": {
+    "message": "Please select items first"
+  },
+  "deleted": {
+    "message": "✅ Deleted"
+  },
+  "cleared": {
+    "message": "✅ Cleared"
+  },
+  "timeAgo": {
+    "message": "ago"
+  },
+  "remaining": {
+    "message": "left"
+  },
+  "justNow": {
+    "message": "Just now"
+  },
+  "minuteAgo": {
+    "message": "m ago"
+  },
+  "hourAgo": {
+    "message": "h ago"
+  },
+  "downloadAll": {
+    "message": "⬇ Download All"
+  },
+  "rescan": {
+    "message": "🔄 Rescan"
+  },
+  "currentPage": {
+    "message": "Current Page"
+  },
+  "singleVideo": {
+    "message": "Single Video"
+  },
+  "formats": {
+    "message": "🎯 Formats"
+  },
+  "dlPage": {
+    "message": "📄 Page"
+  },
+  "autoFilled": {
+    "message": "Auto-filled current page URL"
+  },
+  "openFolderFailed": {
+    "message": "⚠️ Failed to open folder"
+  },
+  "langSwitch": {
+    "message": "中文"
+  },
+  "optTitle": {
+    "message": "⬇ VideoGrab Pro"
+  },
+  "optSubtitle": {
+    "message": "Universal Video Downloader · YouTube, TikTok, Bilibili & 1000+ sites"
+  },
+  "navInstall": {
+    "message": "📦 Install"
+  },
+  "navSettings": {
+    "message": "⚙ Settings"
+  },
+  "navAdvanced": {
+    "message": "🔧 Advanced"
+  },
+  "navAbout": {
+    "message": "ℹ About"
+  },
+  "srvName": {
+    "message": "Local Download Service"
+  },
+  "srvChecking": {
+    "message": "Checking..."
+  },
+  "srvRunning": {
+    "message": "Service running ✅"
+  },
+  "srvStopped": {
+    "message": "Service not running"
+  },
+  "srvStoppedDesc": {
+    "message": "Run: python3 server.py in terminal"
+  },
+  "btnCheck": {
+    "message": "Check"
+  },
+  "btnUpdate": {
+    "message": "🔄 Update"
+  },
+  "installGuideTitle": {
+    "message": "📦 VideoGrab Service Installation"
+  },
+  "installGuideDesc": {
+    "message": "VideoGrab Pro requires a local service for downloading. Built on Python + yt-dlp + ffmpeg, easy to install."
+  },
+  "osWindows": {
+    "message": "🪟 Windows"
+  },
+  "osMac": {
+    "message": "🍎 macOS"
+  },
+  "osLinux": {
+    "message": "🐧 Linux"
+  },
+  "stepDownload": {
+    "message": "Download files"
+  },
+  "stepDownloadDesc": {
+    "message": "Download all files from the server folder"
+  },
+  "btnDownloadFiles": {
+    "message": "⬇ Download Server Files"
+  },
+  "stepPython": {
+    "message": "Install Python 3.8+"
+  },
+  "stepPythonDesc": {
+    "message": "Skip if installed. Download from python.org. Check 'Add Python to PATH'."
+  },
+  "stepRun": {
+    "message": "Run install script"
+  },
+  "stepRunDesc": {
+    "message": "Double-click install_windows.bat to auto-install and start"
+  },
+  "stepManual": {
+    "message": "Or install manually"
+  },
+  "stepBrew": {
+    "message": "Install Homebrew (if needed)"
+  },
+  "stepBrewPy": {
+    "message": "Install Python and ffmpeg"
+  },
+  "stepStartMac": {
+    "message": "Download and start service"
+  },
+  "stepDepsLinux": {
+    "message": "Install dependencies"
+  },
+  "stepStartLinux": {
+    "message": "Download and start service"
+  },
+  "updateLogTitle": {
+    "message": "🔄 Update Log"
+  },
+  "updateLogWaiting": {
+    "message": "Waiting for update..."
+  },
+  "btnUpdateEngine": {
+    "message": "Update yt-dlp engine"
+  },
+  "settQualityTitle": {
+    "message": "🎯 Quality Settings"
+  },
+  "settQualityLabel": {
+    "message": "Default quality"
+  },
+  "settQualityDesc": {
+    "message": "Preferred quality when auto-selecting"
+  },
+  "qualOptBest": {
+    "message": "Best Quality (auto)"
+  },
+  "qualOpt4k": {
+    "message": "4K (2160p)"
+  },
+  "qualOpt2k": {
+    "message": "2K (1440p)"
+  },
+  "qualOpt1080": {
+    "message": "1080p"
+  },
+  "qualOpt720": {
+    "message": "720p"
+  },
+  "qualOpt480": {
+    "message": "480p"
+  },
+  "qualOptAudio": {
+    "message": "Audio only"
+  },
+  "settFormatLabel": {
+    "message": "Preferred format"
+  },
+  "settFormatDesc": {
+    "message": "MP4 has best compatibility; WebM has better quality"
+  },
+  "fmtMp4": {
+    "message": "MP4 (recommended)"
+  },
+  "fmtWebm": {
+    "message": "WebM"
+  },
+  "fmtMkv": {
+    "message": "MKV"
+  },
+  "fmtAuto": {
+    "message": "Auto"
+  },
+  "settSaveTitle": {
+    "message": "💾 Save Settings"
+  },
+  "settPathLabel": {
+    "message": "Download folder"
+  },
+  "settPathDesc": {
+    "message": "Leave empty for default Downloads directory"
+  },
+  "settTplLabel": {
+    "message": "Filename template"
+  },
+  "settDlOptsTitle": {
+    "message": "⚙ Download Options"
+  },
+  "optWatermarkLabel": {
+    "message": "Remove watermark"
+  },
+  "optWatermarkDesc": {
+    "message": "Supports TikTok, Douyin and more"
+  },
+  "optCookieLabel": {
+    "message": "Sync browser cookies"
+  },
+  "optCookieDesc": {
+    "message": "Use browser login for member content"
+  },
+  "optNotifLabel": {
+    "message": "Download notifications"
+  },
+  "optNotifDesc": {
+    "message": "Show system notification when done"
+  },
+  "optSubsLabel": {
+    "message": "Embed subtitles"
+  },
+  "optSubsDesc": {
+    "message": "Auto-download and embed subtitles"
+  },
+  "optThumbLabel": {
+    "message": "Save thumbnail"
+  },
+  "optThumbDesc": {
+    "message": "Also download the video cover image"
+  },
+  "optConcurrentLabel": {
+    "message": "Concurrent downloads"
+  },
+  "optConcurrentDesc": {
+    "message": "Number of simultaneous downloads"
+  },
+  "advServerTitle": {
+    "message": "🔧 Server Settings"
+  },
+  "advPortLabel": {
+    "message": "Local service port"
+  },
+  "advPortDesc": {
+    "message": "Default 7788, change if there is a conflict"
+  },
+  "advProxyTitle": {
+    "message": "🌐 Proxy Settings"
+  },
+  "advProxyLabel": {
+    "message": "Use proxy"
+  },
+  "advProxyDesc": {
+    "message": "Download through a proxy server"
+  },
+  "advProxyUrlLabel": {
+    "message": "Proxy address"
+  },
+  "advProxyUrlDesc": {
+    "message": "Format: http://127.0.0.1:7890"
+  },
+  "advCookieTitle": {
+    "message": "🍪 Cookie Management"
+  },
+  "advCookieDesc": {
+    "message": "VideoGrab Pro auto-extracts cookies from your browser. Just log in to the target site."
+  },
+  "advCookieExport": {
+    "message": "Export page cookies"
+  },
+  "advCookieExportDesc": {
+    "message": "Exports in Netscape format (compatible with yt-dlp)"
+  },
+  "btnExportCookie": {
+    "message": "Export Cookies"
+  },
+  "advArgsTitle": {
+    "message": "📝 Extra yt-dlp arguments"
+  },
+  "advArgsDesc": {
+    "message": "Custom yt-dlp command-line arguments (one per line)"
+  },
+  "aboutVersion": {
+    "message": "Version 1.0.0 · Powered by yt-dlp"
+  },
+  "aboutDesc": {
+    "message": "Supports YouTube, TikTok, Instagram, Bilibili, Twitter/X, Facebook and 1000+ video sites"
+  },
+  "aboutOssTitle": {
+    "message": "🙏 Open Source Credits"
+  },
+  "btnReset": {
+    "message": "Reset Defaults"
+  },
+  "btnSave": {
+    "message": "💾 Save Settings"
+  },
+  "saveOk": {
+    "message": "✅ Saved"
+  },
+  "saveFail": {
+    "message": "❌ Save failed"
+  },
+  "resetConfirm": {
+    "message": "Reset all settings to defaults?"
+  },
+  "resetOk": {
+    "message": "✅ Reset to defaults"
+  },
+  "clickCopy": {
+    "message": "Click to copy"
+  },
+  "copiedText": {
+    "message": "✅ Copied"
+  },
+  "cookieNone": {
+    "message": "No cookies found. Please log in to the target site first."
+  },
+  "exportFail": {
+    "message": "Export failed"
+  },
+  "serverFilesHint": {
+    "message": "The server folder is in the full package. Extract and find the server/ directory."
+  },
+  "optLangSwitch": {
+    "message": "中文"
+  }
+}

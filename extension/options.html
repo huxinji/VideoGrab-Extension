@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>VideoGrab Pro - Settings</title>
+  <style>
+    :root {
+      --bg: #0d0d1a; --bg2: #1a1a2e; --bg3: #16213e;
+      --accent: #00d4ff; --accent2: #ff6b6b;
+      --text: #e8eaf0; --text2: #8892a4; --text3: #4a5568;
+      --border: rgba(0,212,255,0.15); --success: #00c896; --error: #ff4757;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg); color: var(--text);
+      font-family: 'SF Pro Display', -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+      min-height: 100vh; font-size: 14px;
+    }
+    .container { max-width: 800px; margin: 0 auto; padding: 30px 20px; }
+    .page-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 30px; }
+    h1 {
+      font-size: 24px; font-weight: 700; margin-bottom: 4px;
+      background: linear-gradient(90deg, #00d4ff, #0066ff);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .subtitle { color: var(--text2); font-size: 13px; }
+    .lang-btn {
+      padding: 6px 14px; border-radius: 8px; border: 1px solid var(--border);
+      background: var(--bg3); color: var(--accent); cursor: pointer;
+      font-size: 12px; font-weight: 600; transition: all 0.2s; white-space: nowrap;
+    }
+    .lang-btn:hover { border-color: var(--accent); background: rgba(0,212,255,0.1); }
+
+    .nav-tabs {
+      display: flex; gap: 4px; margin-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-tab {
+      padding: 10px 20px; cursor: pointer; font-size: 13px;
+      color: var(--text3); border-bottom: 2px solid transparent;
+      transition: all 0.2s; border-radius: 6px 6px 0 0;
+    }
+    .nav-tab:hover { color: var(--text2); }
+    .nav-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+    .section { display: none; }
+    .section.active { display: block; }
+
+    .card {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 12px; padding: 20px; margin-bottom: 16px;
+    }
+    .card-title {
+      font-size: 14px; font-weight: 600; margin-bottom: 16px;
+      color: var(--accent); display: flex; align-items: center; gap: 8px;
+    }
+    .form-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 0; border-bottom: 1px solid var(--border);
+    }
+    .form-row:last-child { border-bottom: none; }
+    .form-label { font-size: 13px; }
+    .form-desc { font-size: 11px; color: var(--text2); margin-top: 2px; }
+
+    .toggle {
+      width: 40px; height: 22px; background: var(--text3);
+      border-radius: 11px; position: relative; cursor: pointer;
+      transition: background 0.2s; flex-shrink: 0;
+    }
+    .toggle::after {
+      content: ''; position: absolute; width: 18px; height: 18px;
+      background: #fff; border-radius: 50%; top: 2px; left: 2px; transition: transform 0.2s;
+    }
+    .toggle.on { background: var(--accent); }
+    .toggle.on::after { transform: translateX(18px); }
+
+    input[type="text"], input[type="number"], select {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 7px; padding: 8px 12px;
+      color: var(--text); font-size: 13px; outline: none; transition: border-color 0.2s;
+    }
+    input:focus, select:focus { border-color: var(--accent); }
+    select option { background: var(--bg2); }
+
+    .btn {
+      padding: 9px 18px; border-radius: 8px; border: none;
+      font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s;
+    }
+    .btn-primary { background: linear-gradient(135deg, #00d4ff, #0066ff); color: #fff; }
+    .btn-primary:hover { filter: brightness(1.1); }
+    .btn-secondary { background: var(--bg3); color: var(--text2); border: 1px solid var(--border); }
+    .btn-secondary:hover { border-color: var(--accent); }
+    .btn-danger  { background: linear-gradient(135deg, #ff4757, #c0392b); color: #fff; }
+    .btn-success { background: linear-gradient(135deg, #00c896, #00a87e); color: #fff; }
+
+    .install-step { display: flex; gap: 14px; margin-bottom: 16px; align-items: flex-start; }
+    .step-num {
+      width: 28px; height: 28px; background: linear-gradient(135deg, #00d4ff, #0066ff);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 700; flex-shrink: 0; color: #fff;
+    }
+    .step-content { flex: 1; }
+    .step-title { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+    .step-desc { font-size: 12px; color: var(--text2); line-height: 1.6; }
+    .code-block {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 7px; padding: 10px 14px; font-family: monospace;
+      font-size: 12px; color: var(--accent); margin-top: 8px;
+      position: relative; cursor: pointer;
+    }
+    .code-block:hover { border-color: var(--accent); }
+    .copy-hint { position: absolute; right: 10px; top: 10px; font-size: 10px; color: var(--text3); }
+
+    .status-panel {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 10px; padding: 16px; margin-bottom: 14px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .status-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .status-dot.running { background: var(--success); box-shadow: 0 0 8px var(--success); }
+    .status-dot.stopped { background: var(--error); }
+    .status-info { flex: 1; }
+    .status-name   { font-size: 14px; font-weight: 600; }
+    .status-detail { font-size: 11px; color: var(--text2); margin-top: 2px; }
+
+    .tabs-os { display: flex; gap: 6px; margin-bottom: 14px; }
+    .tab-os {
+      padding: 6px 14px; border-radius: 6px; border: 1px solid var(--border);
+      background: var(--bg3); color: var(--text2); cursor: pointer; font-size: 12px;
+    }
+    .tab-os.active { border-color: var(--accent); color: var(--accent); background: rgba(0,212,255,0.08); }
+    .os-panel { display: none; }
+    .os-panel.active { display: block; }
+    .dl-btn-row { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+
+    .update-log {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 7px; padding: 12px; font-size: 11px;
+      color: var(--text2); max-height: 200px; overflow-y: auto;
+      font-family: monospace; line-height: 1.8;
+    }
+    footer {
+      margin-top: 40px; padding: 20px 0; border-top: 1px solid var(--border);
+      color: var(--text3); font-size: 11px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <div class="page-header">
+    <div>
+      <h1 data-i18n="optTitle">⬇ VideoGrab Pro</h1>
+      <p class="subtitle" data-i18n="optSubtitle">全能视频下载器</p>
+    </div>
+    <button class="lang-btn" id="btn-lang">EN</button>
+  </div>
+
+  <div class="nav-tabs">
+    <div class="nav-tab active" data-section="install" data-i18n="navInstall">📦 安装服务</div>
+    <div class="nav-tab" data-section="settings"  data-i18n="navSettings">⚙ 下载设置</div>
+    <div class="nav-tab" data-section="advanced"  data-i18n="navAdvanced">🔧 高级设置</div>
+    <div class="nav-tab" data-section="about"     data-i18n="navAbout">ℹ 关于</div>
+  </div>
+
+  <!-- ── 安装服务 ── -->
+  <div class="section active" id="section-install">
+    <div class="status-panel">
+      <div class="status-dot stopped" id="srv-dot"></div>
+      <div class="status-info">
+        <div class="status-name"   id="srv-name"   data-i18n="srvName">本地下载服务</div>
+        <div class="status-detail" id="srv-detail" data-i18n="srvChecking">检测中...</div>
+      </div>
+      <button class="btn btn-secondary" id="btn-check"  data-i18n="btnCheck">检测</button>
+      <button class="btn btn-primary"   id="btn-update" data-i18n="btnUpdate" style="display:none">🔄 更新</button>
+    </div>
+
+    <div class="card">
+      <div class="card-title" data-i18n="installGuideTitle">📦 安装指南</div>
+      <p style="font-size:12px;color:var(--text2);margin-bottom:16px;line-height:1.7" data-i18n="installGuideDesc">
+        VideoGrab Pro 需要配合本地服务运行。
+      </p>
+      <div class="tabs-os">
+        <div class="tab-os active" data-os="windows" data-i18n="osWindows">🪟 Windows</div>
+        <div class="tab-os"        data-os="mac"     data-i18n="osMac">🍎 macOS</div>
+        <div class="tab-os"        data-os="linux"   data-i18n="osLinux">🐧 Linux</div>
+      </div>
+
+      <!-- Windows -->
+      <div class="os-panel active" id="os-windows">
+        <div class="install-step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <div class="step-title" data-i18n="stepDownload">下载安装包</div>
+            <div class="step-desc"  data-i18n="stepDownloadDesc">下载 server 文件夹中的所有文件到本地</div>
+            <div class="dl-btn-row">
+              <button class="btn btn-primary" id="btn-dl-win" data-i18n="btnDownloadFiles">⬇ 下载服务文件</button>
+            </div>
+          </div>
+        </div>
+        <div class="install-step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <div class="step-title" data-i18n="stepPython">安装 Python 3.8+</div>
+            <div class="step-desc"  data-i18n="stepPythonDesc">如果已安装可跳过。</div>
+            <div class="code-block" data-copyable>
+              <span class="copy-hint" data-i18n="clickCopy">点击复制</span>
+              # https://www.python.org/downloads/
+            </div>
+          </div>
+        </div>
+        <div class="install-step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <div class="step-title" data-i18n="stepRun">运行安装脚本</div>
+            <div class="step-desc"  data-i18n="stepRunDesc">双击运行 install_windows.bat</div>
+            <div class="code-block" data-copyable>
+              <span class="copy-hint" data-i18n="clickCopy">点击复制</span>
+              install_windows.bat
+            </div>
+          </div>
+        </div>
+        <div class="install-step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <div class="step-title" data-i18n="stepManual">或者手动安装</div>
+            <div class="code-block" data-copyable>
+              <span class="copy-hint" data-i18n="clickCopy">点击复制</span>
+pip install -r requirements.txt
+python server.py
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- macOS -->
+      <div class="os-panel" id="os-mac">
+        <div class="install-step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <div class="step-title" data-i18n="stepBrew">安装 Homebrew</div>
+            <div class="code-block" data-copyable>
+              <span class="copy-hint" data-i18n="clickCopy">点击复制</span>
+              /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+            </div>
+          </div>
+        </div>
+        <div class="install-step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <div class="step-title" data-i18n="stepBrewPy">安装 Python 和 ffmpeg</div>
+            <div class="code-block" data-copyable>
+              <span class="copy-hint" data-i18n="clickCopy">点击复制</span>
+              brew install python ffmpeg
+            </div>
+          </div>
+        </div>
+        <div class="install-step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <div class="step-title" data-i18n="stepStartMac">下载并启动服务</div>
+            <div class="dl-btn-row">
+              <button class="btn btn-primary" id="btn-dl-mac" data-i18n="btnDownloadFiles">⬇ 下载服务文件</button>
+            </div>
+            <div class="code-block" data-copyable>
+              <span class="copy-hint" data-i18n="clickCopy">点击复制</span>
+              chmod +x install_mac_linux.sh && ./install_mac_linux.sh
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Linux -->
+      <div class="os-panel" id="os-linux">
+        <div class="install-step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <div class="step-title" data-i18n="stepDepsLinux">安装依赖</div>
+            <div class="code-block" data-copyable>
+              <span class="copy-hint" data-i18n="clickCopy">点击复制</span>
+              sudo apt install python3 python3-pip ffmpeg -y
+            </div>
+          </div>
+        </div>
+        <div class="install-step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <div class="step-title" data-i18n="stepStartLinux">下载并启动服务</div>
+            <div class="dl-btn-row">
+              <button class="btn btn-primary" id="btn-dl-linux" data-i18n="btnDownloadFiles">⬇ 下载服务文件</button>
+            </div>
+            <div class="code-block" data-copyable>
+              <span class="copy-hint" data-i18n="clickCopy">点击复制</span>
+              chmod +x install_mac_linux.sh && ./install_mac_linux.sh
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" id="update-card" style="display:none">
+      <div class="card-title" data-i18n="updateLogTitle">🔄 更新日志</div>
+      <div class="update-log" id="update-log" data-i18n="updateLogWaiting">等待更新...</div>
+      <div style="margin-top:10px">
+        <button class="btn btn-success" id="btn-update-engine" data-i18n="btnUpdateEngine">更新 yt-dlp 引擎</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 下载设置 ── -->
+  <div class="section" id="section-settings">
+    <div class="card">
+      <div class="card-title" data-i18n="settQualityTitle">🎯 画质设置</div>
+      <div class="form-row">
+        <div>
+          <div class="form-label" data-i18n="settQualityLabel">默认下载画质</div>
+          <div class="form-desc"  data-i18n="settQualityDesc">自动选择时优先使用的画质</div>
+        </div>
+        <select id="pref-quality">
+          <option value="best"  data-i18n="qualOptBest">最高画质（自动）</option>
+          <option value="4k"    data-i18n="qualOpt4k">4K (2160p)</option>
+          <option value="2k"    data-i18n="qualOpt2k">2K (1440p)</option>
+          <option value="1080p" data-i18n="qualOpt1080">1080p</option>
+          <option value="720p"  data-i18n="qualOpt720">720p</option>
+          <option value="480p"  data-i18n="qualOpt480">480p</option>
+          <option value="audio" data-i18n="qualOptAudio">仅音频</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <div>
+          <div class="form-label" data-i18n="settFormatLabel">优先视频格式</div>
+          <div class="form-desc"  data-i18n="settFormatDesc">MP4 兼容性最好，WebM 画质更高</div>
+        </div>
+        <select id="pref-format">
+          <option value="mp4"  data-i18n="fmtMp4">MP4（推荐）</option>
+          <option value="webm" data-i18n="fmtWebm">WebM</option>
+          <option value="mkv"  data-i18n="fmtMkv">MKV</option>
+          <option value="auto" data-i18n="fmtAuto">自动</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title" data-i18n="settSaveTitle">💾 保存设置</div>
+      <div class="form-row">
+        <div>
+          <div class="form-label" data-i18n="settPathLabel">下载保存路径</div>
+          <div class="form-desc"  data-i18n="settPathDesc">留空使用系统默认下载目录</div>
+        </div>
+        <input type="text" id="download-path" placeholder="~/Downloads/VideoGrab" style="width:240px">
+      </div>
+      <div class="form-row">
+        <div>
+          <div class="form-label" data-i18n="settTplLabel">文件命名格式</div>
+          <div class="form-desc">%(title)s.%(ext)s</div>
+        </div>
+        <input type="text" id="filename-template" placeholder="%(title)s.%(ext)s" style="width:240px">
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title" data-i18n="settDlOptsTitle">⚙ 下载选项</div>
+      <div class="form-row">
+        <div>
+          <div class="form-label" data-i18n="optWatermarkLabel">自动去除水印</div>
+          <div class="form-desc"  data-i18n="optWatermarkDesc">支持 TikTok、抖音等</div>
+        </div>
+        <div class="toggle on" id="opt-watermark" data-key="removeWatermark"></div>
+      </div>
+      <div class="form-row">
+        <div>
+          <div class="form-label" data-i18n="optCookieLabel">自动同步 Cookie</div>
+          <div class="form-desc"  data-i18n="optCookieDesc">使用浏览器登录状态下载会员内容</div>
+        </div>
+        <div class="toggle on" id="opt-cookie" data-key="cookieSync"></div>
+      </div>
+      <div class="form-row">
+        <div>
+          <div class="form-label" data-i18n="optNotifLabel">下载完成通知</div>
+          <div class="form-desc"  data-i18n="optNotifDesc">显示系统通知</div>
+        </div>
+        <div class="toggle on" id="opt-notif" data-key="notifications"></div>
+      </div>
+      <div class="form-row">
+        <div>
+          <div class="form-label" data-i18n="optSubsLabel">嵌入字幕</div>
+          <div class="form-desc"  data-i18n="optSubsDesc">自动下载并嵌入可用字幕</div>
+        </div>
+        <div class="toggle" id="opt-subs" data-key="embedSubs"></div>
+      </div>
+      <div class="form-row">
+        <div>
+          <div class="form-label" data-i18n="optThumbLabel">保存缩略图</div>
+          <div class="form-desc"  data-i18n="optThumbDesc">同时下载视频封面图</div>
+        </div>
+        <div class="toggle" id="opt-thumb" data-key="writeThumbnail"></div>
+      </div>
+      <div class="form-row">
+        <div>
+          <div class="form-label" data-i18n="optConcurrentLabel">并发下载数</div>
+          <div class="form-desc"  data-i18n="optConcurrentDesc">同时下载的视频数量</div>
+        </div>
+        <input type="number" id="concurrent" min="1" max="8" value="3" style="width:70px;text-align:center">
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 高级设置 ── -->
+  <div class="section" id="section-advanced">
+    <div class="card">
+      <div class="card-title" data-i18n="advServerTitle">🔧 服务器设置</div>
+      <div class="form-row">
+        <div>
+          <div class="form-label" data-i18n="advPortLabel">本地服务端口</div>
+          <div class="form-desc"  data-i18n="advPortDesc">默认 7788，如有冲突可修改</div>
+        </div>
+        <input type="number" id="server-port" value="7788" min="1024" max="65535" style="width:100px">
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title" data-i18n="advProxyTitle">🌐 代理设置</div>
+      <div class="form-row">
+        <div>
+          <div class="form-label" data-i18n="advProxyLabel">使用代理</div>
+          <div class="form-desc"  data-i18n="advProxyDesc">通过代理服务器下载</div>
+        </div>
+        <div class="toggle" id="opt-proxy" data-key="useProxy"></div>
+      </div>
+      <div class="form-row" id="proxy-row" style="display:none">
+        <div>
+          <div class="form-label" data-i18n="advProxyUrlLabel">代理地址</div>
+          <div class="form-desc"  data-i18n="advProxyUrlDesc">格式：http://127.0.0.1:7890</div>
+        </div>
+        <input type="text" id="proxy-url" placeholder="http://127.0.0.1:7890" style="width:240px">
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title" data-i18n="advCookieTitle">🍪 Cookie 管理</div>
+      <p style="font-size:12px;color:var(--text2);line-height:1.7;margin-bottom:14px" data-i18n="advCookieDesc">
+        VideoGrab Pro 自动从浏览器提取登录 Cookie。
+      </p>
+      <div class="form-row">
+        <div>
+          <div class="form-label" data-i18n="advCookieExport">导出当前页面 Cookie</div>
+          <div class="form-desc"  data-i18n="advCookieExportDesc">以 Netscape 格式导出</div>
+        </div>
+        <button class="btn btn-secondary" id="btn-export-cookie" data-i18n="btnExportCookie">导出 Cookie</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title" data-i18n="advArgsTitle">📝 额外 yt-dlp 参数</div>
+      <p style="font-size:12px;color:var(--text2);margin-bottom:10px" data-i18n="advArgsDesc">
+        添加自定义 yt-dlp 命令行参数（每行一个）
+      </p>
+      <textarea id="extra-args"
+        style="width:100%;height:100px;background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:10px;color:var(--text);font-family:monospace;font-size:12px;resize:vertical;outline:none"
+        placeholder="--no-playlist&#10;--write-auto-subs"></textarea>
+    </div>
+  </div>
+
+  <!-- ── 关于 ── -->
+  <div class="section" id="section-about">
+    <div class="card" style="text-align:center;padding:30px">
+      <div style="font-size:48px;margin-bottom:14px">⬇</div>
+      <h2 style="font-size:20px;background:linear-gradient(90deg,#00d4ff,#0066ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:6px">VideoGrab Pro</h2>
+      <p style="color:var(--text2);font-size:12px;margin-bottom:12px" data-i18n="aboutVersion">版本 1.0.0 · 基于 yt-dlp 引擎</p>
+      <p style="color:var(--text2);font-size:13px;line-height:1.8" data-i18n="aboutDesc">
+        支持 YouTube、TikTok、B站等 1000+ 平台
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-title" data-i18n="aboutOssTitle">🙏 开源致谢</div>
+      <div style="font-size:12px;color:var(--text2);line-height:2">
+        · <strong>yt-dlp</strong> - Core download engine<br>
+        · <strong>ffmpeg</strong> - Video processing<br>
+        · <strong>Flask</strong> - Local server framework
+      </div>
+    </div>
+  </div>
+
+  <!-- 底部按钮 -->
+  <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:6px">
+    <button class="btn btn-secondary" id="btn-reset" data-i18n="btnReset">恢复默认</button>
+    <button class="btn btn-primary"   id="btn-save"  data-i18n="btnSave">💾 保存设置</button>
+  </div>
+
+  <footer>
+    <span>VideoGrab Pro · Personal use only</span>
+    <span id="save-status"></span>
+  </footer>
+</div>
+<script src="options.js"></script>
+</body>
+</html>

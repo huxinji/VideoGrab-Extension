@@ -1,0 +1,530 @@
+{
+  "extName": {
+    "message": "VideoGrab Pro - 全能视频下载器"
+  },
+  "extDesc": {
+    "message": "支持YouTube、TikTok、Instagram、B站等平台视频下载"
+  },
+  "statusChecking": {
+    "message": "正在连接服务..."
+  },
+  "statusRunning": {
+    "message": "本地服务运行中 · yt-dlp"
+  },
+  "statusStopped": {
+    "message": "⚠️ 服务未启动 — 请运行 server.py"
+  },
+  "tabDetect": {
+    "message": "检测"
+  },
+  "tabDownload": {
+    "message": "下载"
+  },
+  "tabTasks": {
+    "message": "任务"
+  },
+  "tabPlaylist": {
+    "message": "播放列表"
+  },
+  "scanning": {
+    "message": "正在扫描..."
+  },
+  "noVideos": {
+    "message": "当前页面未检测到视频"
+  },
+  "smartDownload": {
+    "message": "⬇ 智能下载"
+  },
+  "batchDownload": {
+    "message": "📋 批量下载"
+  },
+  "selectFormat": {
+    "message": "🎯 选择格式"
+  },
+  "downloadBtn": {
+    "message": "⬇ 下载"
+  },
+  "copyBtn": {
+    "message": "📋 复制"
+  },
+  "urlPlaceholder": {
+    "message": "粘贴视频链接..."
+  },
+  "analyzeBtn": {
+    "message": "🔍 解析"
+  },
+  "downloadNow": {
+    "message": "⬇ 立即下载"
+  },
+  "qualityBest": {
+    "message": "最高画质"
+  },
+  "quality4k": {
+    "message": "4K"
+  },
+  "quality1080": {
+    "message": "1080p"
+  },
+  "quality720": {
+    "message": "720p"
+  },
+  "quality480": {
+    "message": "480p"
+  },
+  "qualityAudio": {
+    "message": "仅音频"
+  },
+  "taskFilterAll": {
+    "message": "全部"
+  },
+  "taskFilterActive": {
+    "message": "下载中"
+  },
+  "taskFilterDone": {
+    "message": "已完成"
+  },
+  "taskFilterError": {
+    "message": "失败/取消"
+  },
+  "selectTasks": {
+    "message": "✓ 多选"
+  },
+  "clearHistory": {
+    "message": "🗑 清除历史"
+  },
+  "noTasks": {
+    "message": "暂无下载任务"
+  },
+  "statusDownloading": {
+    "message": "下载中"
+  },
+  "statusPending": {
+    "message": "等待中"
+  },
+  "statusCompleted": {
+    "message": "已完成"
+  },
+  "statusError": {
+    "message": "失败"
+  },
+  "statusCancelled": {
+    "message": "已取消"
+  },
+  "cancelBtn": {
+    "message": "取消"
+  },
+  "openFolder": {
+    "message": "📂"
+  },
+  "deleteBtn": {
+    "message": "🗑"
+  },
+  "batchDelete": {
+    "message": "删除所选"
+  },
+  "batchCancel": {
+    "message": "取消所选"
+  },
+  "selectAll": {
+    "message": "全选"
+  },
+  "exitSelect": {
+    "message": "✕ 退出"
+  },
+  "playlistUrl": {
+    "message": "播放列表链接"
+  },
+  "analyzePl": {
+    "message": "🔍 解析播放列表"
+  },
+  "downloadSelected": {
+    "message": "⬇ 下载所选"
+  },
+  "removeWatermark": {
+    "message": "自动去水印"
+  },
+  "embedSubs": {
+    "message": "嵌入字幕"
+  },
+  "installServer": {
+    "message": "安装服务 →"
+  },
+  "copied": {
+    "message": "✅ 链接已复制"
+  },
+  "serverRequired": {
+    "message": "⚠️ 请先启动本地服务"
+  },
+  "downloadStarted": {
+    "message": "✅ 已加入下载队列"
+  },
+  "downloadFailed": {
+    "message": "❌ 下载失败"
+  },
+  "noUrl": {
+    "message": "⚠️ 请先输入视频链接"
+  },
+  "dialogConfirm": {
+    "message": "确认"
+  },
+  "dialogCancel": {
+    "message": "取消"
+  },
+  "deleteConfirmTitle": {
+    "message": "删除记录"
+  },
+  "deleteConfirmDesc": {
+    "message": "仅清除列表记录，视频文件不受影响。"
+  },
+  "clearConfirmTitle": {
+    "message": "清除全部历史"
+  },
+  "clearConfirmDesc": {
+    "message": "将清除所有已完成/失败记录，文件不受影响。"
+  },
+  "nothingToClear": {
+    "message": "没有可清除的记录"
+  },
+  "noSelection": {
+    "message": "请先勾选要操作的记录"
+  },
+  "deleted": {
+    "message": "✅ 已删除"
+  },
+  "cleared": {
+    "message": "✅ 已清除"
+  },
+  "timeAgo": {
+    "message": "前"
+  },
+  "remaining": {
+    "message": "剩余"
+  },
+  "justNow": {
+    "message": "刚刚"
+  },
+  "minuteAgo": {
+    "message": "分钟前"
+  },
+  "hourAgo": {
+    "message": "小时前"
+  },
+  "downloadAll": {
+    "message": "⬇ 全部下载"
+  },
+  "rescan": {
+    "message": "🔄 重新扫描"
+  },
+  "currentPage": {
+    "message": "当前页面"
+  },
+  "singleVideo": {
+    "message": "单个视频"
+  },
+  "formats": {
+    "message": "🎯 选格式"
+  },
+  "dlPage": {
+    "message": "📄 当前页"
+  },
+  "autoFilled": {
+    "message": "已自动填入当前页链接"
+  },
+  "openFolderFailed": {
+    "message": "⚠️ 打开文件夹失败"
+  },
+  "langSwitch": {
+    "message": "EN"
+  },
+  "optTitle": {
+    "message": "⬇ VideoGrab Pro"
+  },
+  "optSubtitle": {
+    "message": "全能视频下载器 · 支持 YouTube、TikTok、B站、抖音、小红书等 1000+ 平台"
+  },
+  "navInstall": {
+    "message": "📦 安装服务"
+  },
+  "navSettings": {
+    "message": "⚙ 下载设置"
+  },
+  "navAdvanced": {
+    "message": "🔧 高级设置"
+  },
+  "navAbout": {
+    "message": "ℹ 关于"
+  },
+  "srvName": {
+    "message": "本地下载服务"
+  },
+  "srvChecking": {
+    "message": "检测中..."
+  },
+  "srvRunning": {
+    "message": "本地服务运行中 ✅"
+  },
+  "srvStopped": {
+    "message": "本地服务未启动"
+  },
+  "srvStoppedDesc": {
+    "message": "请在终端运行 python3 server.py"
+  },
+  "btnCheck": {
+    "message": "检测"
+  },
+  "btnUpdate": {
+    "message": "🔄 更新"
+  },
+  "installGuideTitle": {
+    "message": "📦 VideoGrab 本地服务安装指南"
+  },
+  "installGuideDesc": {
+    "message": "VideoGrab Pro 需要配合本地服务运行，以实现视频下载、去水印等功能。本地服务基于 Python + yt-dlp + ffmpeg，安装简单，一键启动。"
+  },
+  "osWindows": {
+    "message": "🪟 Windows"
+  },
+  "osMac": {
+    "message": "🍎 macOS"
+  },
+  "osLinux": {
+    "message": "🐧 Linux"
+  },
+  "stepDownload": {
+    "message": "下载安装包"
+  },
+  "stepDownloadDesc": {
+    "message": "下载 server 文件夹中的所有文件到本地"
+  },
+  "btnDownloadFiles": {
+    "message": "⬇ 下载服务文件"
+  },
+  "stepPython": {
+    "message": "安装 Python 3.8+"
+  },
+  "stepPythonDesc": {
+    "message": "如果已安装可跳过。从官网下载 Python，安装时勾选 \"Add Python to PATH\""
+  },
+  "stepRun": {
+    "message": "运行安装脚本"
+  },
+  "stepRunDesc": {
+    "message": "双击运行 install_windows.bat，自动安装依赖并启动服务"
+  },
+  "stepManual": {
+    "message": "或者手动安装"
+  },
+  "stepBrew": {
+    "message": "安装 Homebrew（如未安装）"
+  },
+  "stepBrewPy": {
+    "message": "安装 Python 和 ffmpeg"
+  },
+  "stepStartMac": {
+    "message": "下载并启动服务"
+  },
+  "stepDepsLinux": {
+    "message": "安装依赖"
+  },
+  "stepStartLinux": {
+    "message": "下载并启动服务"
+  },
+  "updateLogTitle": {
+    "message": "🔄 更新日志"
+  },
+  "updateLogWaiting": {
+    "message": "等待更新..."
+  },
+  "btnUpdateEngine": {
+    "message": "更新 yt-dlp 引擎"
+  },
+  "settQualityTitle": {
+    "message": "🎯 画质设置"
+  },
+  "settQualityLabel": {
+    "message": "默认下载画质"
+  },
+  "settQualityDesc": {
+    "message": "自动选择时优先使用的画质"
+  },
+  "qualOptBest": {
+    "message": "最高画质（自动）"
+  },
+  "qualOpt4k": {
+    "message": "4K (2160p)"
+  },
+  "qualOpt2k": {
+    "message": "2K (1440p)"
+  },
+  "qualOpt1080": {
+    "message": "1080p"
+  },
+  "qualOpt720": {
+    "message": "720p"
+  },
+  "qualOpt480": {
+    "message": "480p"
+  },
+  "qualOptAudio": {
+    "message": "仅音频"
+  },
+  "settFormatLabel": {
+    "message": "优先视频格式"
+  },
+  "settFormatDesc": {
+    "message": "MP4 兼容性最好，WebM 画质更高"
+  },
+  "fmtMp4": {
+    "message": "MP4（推荐）"
+  },
+  "fmtWebm": {
+    "message": "WebM"
+  },
+  "fmtMkv": {
+    "message": "MKV"
+  },
+  "fmtAuto": {
+    "message": "自动"
+  },
+  "settSaveTitle": {
+    "message": "💾 保存设置"
+  },
+  "settPathLabel": {
+    "message": "下载保存路径"
+  },
+  "settPathDesc": {
+    "message": "留空使用系统默认下载目录"
+  },
+  "settTplLabel": {
+    "message": "文件命名格式"
+  },
+  "settDlOptsTitle": {
+    "message": "⚙ 下载选项"
+  },
+  "optWatermarkLabel": {
+    "message": "自动去除水印"
+  },
+  "optWatermarkDesc": {
+    "message": "支持 TikTok、抖音等平台的水印去除"
+  },
+  "optCookieLabel": {
+    "message": "自动同步 Cookie"
+  },
+  "optCookieDesc": {
+    "message": "使用浏览器登录状态下载会员内容"
+  },
+  "optNotifLabel": {
+    "message": "下载完成通知"
+  },
+  "optNotifDesc": {
+    "message": "显示系统通知"
+  },
+  "optSubsLabel": {
+    "message": "嵌入字幕"
+  },
+  "optSubsDesc": {
+    "message": "自动下载并嵌入可用字幕"
+  },
+  "optThumbLabel": {
+    "message": "保存缩略图"
+  },
+  "optThumbDesc": {
+    "message": "同时下载视频封面图"
+  },
+  "optConcurrentLabel": {
+    "message": "并发下载数"
+  },
+  "optConcurrentDesc": {
+    "message": "同时下载的视频数量"
+  },
+  "advServerTitle": {
+    "message": "🔧 服务器设置"
+  },
+  "advPortLabel": {
+    "message": "本地服务端口"
+  },
+  "advPortDesc": {
+    "message": "默认 7788，如有冲突可修改"
+  },
+  "advProxyTitle": {
+    "message": "🌐 代理设置"
+  },
+  "advProxyLabel": {
+    "message": "使用代理"
+  },
+  "advProxyDesc": {
+    "message": "通过代理服务器下载（支持访问受限平台）"
+  },
+  "advProxyUrlLabel": {
+    "message": "代理地址"
+  },
+  "advProxyUrlDesc": {
+    "message": "格式：http://127.0.0.1:7890"
+  },
+  "advCookieTitle": {
+    "message": "🍪 Cookie 管理"
+  },
+  "advCookieDesc": {
+    "message": "VideoGrab Pro 自动从浏览器提取登录 Cookie，无需手动配置。访问目标网站并登录后，扩展会自动使用您的登录状态下载会员内容。"
+  },
+  "advCookieExport": {
+    "message": "导出当前页面 Cookie"
+  },
+  "advCookieExportDesc": {
+    "message": "以 Netscape 格式导出（可直接用于 yt-dlp）"
+  },
+  "btnExportCookie": {
+    "message": "导出 Cookie"
+  },
+  "advArgsTitle": {
+    "message": "📝 额外 yt-dlp 参数"
+  },
+  "advArgsDesc": {
+    "message": "添加自定义 yt-dlp 命令行参数（每行一个）"
+  },
+  "aboutVersion": {
+    "message": "版本 1.0.0 · 基于 yt-dlp 引擎"
+  },
+  "aboutDesc": {
+    "message": "支持 YouTube、TikTok、Instagram、抖音、小红书、B站、微博等 1000+ 视频平台"
+  },
+  "aboutOssTitle": {
+    "message": "🙏 开源致谢"
+  },
+  "btnReset": {
+    "message": "恢复默认"
+  },
+  "btnSave": {
+    "message": "💾 保存设置"
+  },
+  "saveOk": {
+    "message": "✅ 已保存"
+  },
+  "saveFail": {
+    "message": "❌ 保存失败"
+  },
+  "resetConfirm": {
+    "message": "确定恢复所有默认设置吗？"
+  },
+  "resetOk": {
+    "message": "✅ 已恢复默认"
+  },
+  "clickCopy": {
+    "message": "点击复制"
+  },
+  "copiedText": {
+    "message": "✅ 已复制"
+  },
+  "cookieNone": {
+    "message": "未获取到 Cookie，请确保已在目标网站登录"
+  },
+  "exportFail": {
+    "message": "导出失败"
+  },
+  "serverFilesHint": {
+    "message": "server 文件夹已包含在完整安装包中，解压后找到 server/ 文件夹即可。"
+  },
+  "optLangSwitch": {
+    "message": "EN"
+  }
+}

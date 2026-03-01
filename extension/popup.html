@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VideoGrab Pro</title>
+  <style>
+    :root {
+      --bg-primary:   #0d0d1a;
+      --bg-secondary: #1a1a2e;
+      --bg-card:      #16213e;
+      --bg-hover:     #1e2d4d;
+      --accent:       #00d4ff;
+      --accent-2:     #ff6b6b;
+      --accent-3:     #ffd700;
+      --text-primary: #e8eaf0;
+      --text-secondary:#8892a4;
+      --text-muted:   #4a5568;
+      --border:       rgba(0,212,255,0.15);
+      --border-hover: rgba(0,212,255,0.4);
+      --success:      #00c896;
+      --error:        #ff4757;
+      --warning:      #ffd700;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      width: 420px; min-height: 500px; max-height: 640px;
+      background: var(--bg-primary); color: var(--text-primary);
+      font-family: 'SF Pro Display', -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+      font-size: 13px; overflow: hidden; display: flex; flex-direction: column;
+    }
+
+    /* Header */
+    .header {
+      background: linear-gradient(135deg, #0d0d1a 0%, #1a1a2e 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 16px; display: flex; align-items: center; gap: 10px; flex-shrink: 0;
+    }
+    .header-logo {
+      width: 28px; height: 28px; background: linear-gradient(135deg, #00d4ff, #0066ff);
+      border-radius: 8px; display: flex; align-items: center; justify-content: center;
+      font-size: 14px; flex-shrink: 0;
+    }
+    .header-title { flex: 1; }
+    .header-title h1 {
+      font-size: 14px; font-weight: 700; letter-spacing: 0.3px;
+      background: linear-gradient(90deg, #00d4ff, #0099ff);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .header-title p { font-size: 10px; color: var(--text-muted); margin-top: 1px; }
+    .header-actions { display: flex; gap: 6px; }
+    .icon-btn {
+      height: 28px; min-width: 28px; padding: 0 6px;
+      border-radius: 7px; border: 1px solid var(--border);
+      background: var(--bg-card); color: var(--text-secondary);
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      font-size: 12px; transition: all 0.2s; white-space: nowrap;
+    }
+    .icon-btn:hover { border-color: var(--border-hover); color: var(--accent); background: var(--bg-hover); }
+
+    /* Server Status */
+    .server-status {
+      padding: 8px 16px; background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 8px; flex-shrink: 0;
+    }
+    .status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--error); flex-shrink: 0; }
+    .status-dot.running  { background: var(--success); box-shadow: 0 0 6px var(--success); }
+    .status-dot.checking { background: var(--warning); animation: pulse 1s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+    .status-text { font-size: 11px; color: var(--text-secondary); flex: 1; }
+    .install-link { font-size: 10px; color: var(--accent); cursor: pointer; text-decoration: underline; flex-shrink: 0; display: none; }
+
+    /* Tabs */
+    .tabs { display: flex; background: var(--bg-secondary); border-bottom: 1px solid var(--border); flex-shrink: 0; }
+    .tab {
+      flex: 1; padding: 9px 4px; text-align: center; font-size: 11px;
+      color: var(--text-muted); cursor: pointer; border-bottom: 2px solid transparent;
+      transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 4px;
+    }
+    .tab:hover  { color: var(--text-secondary); }
+    .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+    .tab-badge {
+      background: var(--accent-2); color: #fff; border-radius: 10px;
+      padding: 1px 5px; font-size: 9px; font-weight: 700; min-width: 16px; text-align: center;
+    }
+    .tab-badge:empty { display: none; }
+
+    /* Panels */
+    .tab-content { flex: 1; overflow: hidden; display: flex; flex-direction: column; }
+    .tab-panel   { display: none; flex: 1; overflow-y: auto; flex-direction: column; }
+    .tab-panel.active { display: flex; }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(0,212,255,0.2); border-radius: 2px; }
+
+    /* Detect */
+    .detect-header { padding: 10px 16px; display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+    .detect-site   { font-size: 11px; color: var(--text-secondary); flex: 1; }
+    .detect-opts   { display: none; gap: 6px; }
+    .detect-opts.visible { display: flex; }
+    .scanning-indicator { display: none; align-items: center; gap: 8px; padding: 12px 16px; }
+    .spin { animation: spin 0.8s linear infinite; font-size: 14px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .video-list  { padding: 8px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+    .empty-detect { padding: 40px 20px; text-align: center; color: var(--text-muted); display: none; }
+    .empty-detect .empty-icon { font-size: 32px; margin-bottom: 8px; }
+
+    .video-item {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 10px; padding: 10px 12px; transition: border-color 0.2s;
+    }
+    .video-item:hover { border-color: var(--border-hover); }
+    .video-header { display: flex; gap: 10px; margin-bottom: 8px; }
+    .video-thumb  {
+      width: 44px; height: 44px; border-radius: 6px; background: var(--bg-secondary);
+      display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; overflow: hidden;
+    }
+    .video-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .video-info  { flex: 1; min-width: 0; }
+    .video-title { font-size: 12px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .video-meta  { display: flex; gap: 4px; margin-top: 4px; flex-wrap: wrap; }
+    .meta-tag    { font-size: 10px; background: rgba(0,212,255,0.1); color: var(--accent); border-radius: 4px; padding: 1px 6px; }
+    .meta-tag.quality  { background: rgba(255,215,0,0.1); color: var(--accent-3); }
+    .meta-tag.platform { background: rgba(0,200,150,0.1); color: var(--success); }
+    .video-actions { display: flex; gap: 6px; }
+
+    /* Download */
+    .dl-section { padding: 12px 16px; border-bottom: 1px solid var(--border); }
+    .dl-section-title { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+    .url-input-wrap { display: flex; gap: 6px; }
+    .url-input {
+      flex: 1; background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 8px; padding: 8px 12px; color: var(--text-primary); font-size: 12px; outline: none;
+      transition: border-color 0.2s;
+    }
+    .url-input:focus { border-color: var(--accent); }
+    .url-input::placeholder { color: var(--text-muted); }
+    .quality-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+    .q-btn {
+      padding: 7px 4px; background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 8px; color: var(--text-secondary); cursor: pointer;
+      font-size: 11px; text-align: center; transition: all 0.2s;
+    }
+    .q-btn:hover  { border-color: var(--border-hover); color: var(--text-primary); }
+    .q-btn.active { border-color: var(--accent); background: rgba(0,212,255,0.1); color: var(--accent); }
+    .q-btn .q-icon { font-size: 14px; display: block; margin-bottom: 2px; }
+    .format-selector { display: none; }
+    .format-selector.visible { display: block; }
+    .format-list { max-height: 140px; overflow-y: auto; display: flex; flex-direction: column; gap: 4px; margin-top: 8px; }
+    .fmt-item {
+      padding: 6px 10px; background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 6px; cursor: pointer; display: flex; gap: 8px; align-items: center;
+      font-size: 11px; transition: all 0.2s;
+    }
+    .fmt-item:hover  { border-color: var(--border-hover); }
+    .fmt-item.active { border-color: var(--accent); background: rgba(0,212,255,0.1); }
+    .fmt-res  { font-weight: 600; color: var(--text-primary); min-width: 46px; }
+    .fmt-ext  { color: var(--text-muted); }
+    .fmt-size { margin-left: auto; color: var(--text-muted); }
+    .toggle-row { display: flex; align-items: center; justify-content: space-between; margin-top: 8px; }
+    .toggle-label { font-size: 12px; color: var(--text-secondary); }
+    .toggle {
+      width: 34px; height: 18px; background: var(--bg-card); border-radius: 9px;
+      border: 1px solid var(--border); cursor: pointer; position: relative; transition: all 0.2s;
+    }
+    .toggle::after {
+      content: ''; position: absolute; width: 12px; height: 12px;
+      background: var(--text-muted); border-radius: 50%; top: 2px; left: 2px; transition: all 0.2s;
+    }
+    .toggle.on  { background: rgba(0,212,255,0.2); border-color: var(--accent); }
+    .toggle.on::after { background: var(--accent); transform: translateX(16px); }
+    .analyze-result {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 8px; padding: 10px 12px; margin-top: 8px; display: none;
+    }
+    .analyze-result.visible { display: block; }
+    .ar-title { font-size: 12px; font-weight: 500; margin-bottom: 4px; }
+    .ar-meta  { font-size: 10px; color: var(--text-muted); }
+
+    /* Tasks */
+    .tasks-toolbar {
+      padding: 8px 16px; display: flex; align-items: center; gap: 6px;
+      border-bottom: 1px solid var(--border); flex-shrink: 0;
+    }
+    .filter-btn {
+      padding: 4px 10px; border-radius: 6px; border: 1px solid var(--border);
+      background: transparent; color: var(--text-muted); cursor: pointer; font-size: 11px; transition: all 0.2s;
+    }
+    .filter-btn:hover  { color: var(--text-secondary); }
+    .filter-btn.active { border-color: var(--accent); color: var(--accent); background: rgba(0,212,255,0.08); }
+    .toolbar-spacer { flex: 1; }
+    .sse-dot {
+      width: 6px; height: 6px; border-radius: 50%; background: var(--text-muted);
+      flex-shrink: 0; transition: background 0.3s;
+    }
+    .sse-dot.live { background: var(--success); box-shadow: 0 0 5px var(--success); animation: pulse 2s infinite; }
+    .task-list   { padding: 8px; display: flex; flex-direction: column; gap: 6px; flex: 1; overflow-y: auto; }
+    .empty-tasks { padding: 40px 20px; text-align: center; color: var(--text-muted); }
+    .empty-tasks .empty-icon { font-size: 32px; margin-bottom: 8px; }
+
+    .task-item {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 10px; padding: 10px 12px; cursor: pointer; transition: border-color 0.2s; position: relative;
+    }
+    .task-item:hover   { border-color: var(--border-hover); }
+    .task-item.select-mode { padding-left: 34px; }
+    .task-item.selected    { border-color: var(--accent); background: rgba(0,212,255,0.05); }
+
+    .task-check {
+      position: absolute; left: 10px; top: 50%; transform: translateY(-50%);
+      width: 16px; height: 16px; border-radius: 4px; border: 1px solid var(--border);
+      background: var(--bg-secondary); display: none; align-items: center; justify-content: center;
+      font-size: 10px; transition: all 0.2s;
+    }
+    .task-item.select-mode .task-check { display: flex; }
+    .task-item.selected .task-check    { background: var(--accent); border-color: var(--accent); color: #000; }
+    .task-item.selected .task-check::after { content: '✓'; }
+
+    .task-header { display: flex; align-items: flex-start; gap: 6px; margin-bottom: 6px; }
+    .task-title  { flex: 1; font-size: 12px; font-weight: 500; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; }
+    .task-status { font-size: 10px; padding: 2px 7px; border-radius: 5px; flex-shrink: 0; font-weight: 600; }
+    .task-status.downloading { background: rgba(0,212,255,0.15); color: var(--accent); }
+    .task-status.pending     { background: rgba(255,215,0,0.12); color: var(--accent-3); }
+    .task-status.completed   { background: rgba(0,200,150,0.15); color: var(--success); }
+    .task-status.error       { background: rgba(255,71,87,0.15); color: var(--error); }
+    .task-status.cancelled   { background: rgba(138,138,138,0.15); color: var(--text-muted); }
+
+    .progress-track { height: 4px; background: var(--bg-secondary); border-radius: 2px; margin-bottom: 4px; overflow: hidden; }
+    .progress-fill  { height: 100%; background: var(--accent); border-radius: 2px; will-change: width; }
+    .progress-fill.completed { background: var(--success); }
+    .progress-fill.error     { background: var(--error); }
+
+    .progress-info { display: flex; align-items: center; gap: 6px; font-size: 10px; color: var(--text-muted); margin-bottom: 4px; }
+    .progress-pct  { font-weight: 600; }
+    .progress-pct.completed { color: var(--success); }
+    .progress-pct.error     { color: var(--error); }
+    .progress-speed { margin-left: auto; }
+
+    .task-meta { display: flex; align-items: center; gap: 6px; }
+    .task-meta-info  { flex: 1; font-size: 10px; color: var(--text-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .task-action-btn {
+      padding: 3px 8px; border-radius: 5px; border: 1px solid var(--border);
+      background: transparent; color: var(--text-muted); cursor: pointer; font-size: 10px; transition: all 0.15s;
+    }
+    .task-action-btn:hover  { color: var(--text-primary); border-color: var(--border-hover); }
+    .task-cancel-btn:hover  { color: var(--error); border-color: var(--error); }
+    .task-open-btn:hover    { color: var(--success); border-color: var(--success); }
+    .task-delete-btn:hover  { color: var(--error); border-color: var(--error); }
+
+    /* Batch bar */
+    .batch-bar {
+      display: none; padding: 8px 16px; background: var(--bg-secondary);
+      border-top: 1px solid var(--border); align-items: center; gap: 8px; flex-shrink: 0;
+    }
+    .batch-bar.visible { display: flex; }
+    .batch-count { font-size: 11px; color: var(--text-secondary); flex: 1; }
+
+    /* Playlist */
+    .pl-section { padding: 12px 16px; }
+    .pl-list { display: flex; flex-direction: column; gap: 4px; margin-top: 8px; max-height: 300px; overflow-y: auto; }
+    .pl-item {
+      display: flex; align-items: center; gap: 8px; padding: 7px 10px;
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: 7px; cursor: pointer;
+      transition: border-color 0.15s;
+    }
+    .pl-item:hover    { border-color: var(--border-hover); }
+    .pl-item.selected { border-color: var(--accent); background: rgba(0,212,255,0.05); }
+    .pl-check  { width: 14px; height: 14px; border-radius: 3px; border: 1px solid var(--border); flex-shrink: 0; }
+    .pl-item.selected .pl-check { background: var(--accent); border-color: var(--accent); }
+    .pl-title  { flex: 1; font-size: 11px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .pl-dur    { font-size: 10px; color: var(--text-muted); flex-shrink: 0; }
+    .pl-select-all { font-size: 11px; color: var(--accent); cursor: pointer; margin-bottom: 6px; display: inline-block; }
+
+    /* Buttons */
+    .btn {
+      padding: 8px 14px; border-radius: 8px; border: none; cursor: pointer;
+      font-size: 12px; font-weight: 500; transition: all 0.2s; white-space: nowrap;
+    }
+    .btn-primary   { background: linear-gradient(135deg, #00d4ff, #0066ff); color: #fff; }
+    .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+    .btn-secondary { background: var(--bg-card); border: 1px solid var(--border); color: var(--text-secondary); }
+    .btn-secondary:hover { border-color: var(--border-hover); color: var(--text-primary); }
+    .btn-danger    { background: rgba(255,71,87,0.15); border: 1px solid rgba(255,71,87,0.3); color: var(--error); }
+    .btn-danger:hover { background: rgba(255,71,87,0.25); }
+    .btn-sm { padding: 5px 10px; font-size: 11px; }
+    .dl-btn {
+      padding: 6px 12px; border-radius: 7px; border: 1px solid var(--border);
+      background: var(--bg-secondary); color: var(--text-secondary); cursor: pointer; font-size: 11px; transition: all 0.2s;
+    }
+    .dl-btn:hover   { border-color: var(--border-hover); color: var(--text-primary); }
+    .dl-btn.primary { background: linear-gradient(135deg, #00d4ff, #0066ff); border-color: transparent; color: #fff; }
+
+    /* Toast */
+    .notify-toast {
+      position: fixed; bottom: 12px; left: 50%; transform: translateX(-50%) translateY(20px);
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px;
+      padding: 8px 16px; font-size: 12px; z-index: 999; opacity: 0;
+      transition: all 0.25s; pointer-events: none; white-space: nowrap;
+    }
+    .notify-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* Dialog */
+    .dialog-overlay {
+      display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+      align-items: center; justify-content: center; z-index: 100;
+    }
+    .dialog-overlay.visible { display: flex; }
+    .dialog-box {
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px;
+      padding: 20px; width: 280px; text-align: center;
+    }
+    .dialog-icon  { font-size: 28px; margin-bottom: 8px; }
+    .dialog-title { font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+    .dialog-desc  { font-size: 11px; color: var(--text-muted); margin-bottom: 16px; }
+    .dialog-btns  { display: flex; gap: 8px; justify-content: center; }
+  </style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <div class="header-logo">🎬</div>
+  <div class="header-title">
+    <h1>VideoGrab Pro</h1>
+    <p id="current-site"></p>
+  </div>
+  <div class="header-actions">
+    <button class="icon-btn" id="btn-lang" title="Switch Language">EN</button>
+    <button class="icon-btn" id="btn-refresh">↺</button>
+    <button class="icon-btn" id="btn-settings">⚙</button>
+  </div>
+</div>
+
+<!-- Server Status -->
+<div class="server-status">
+  <div class="status-dot checking" id="status-dot"></div>
+  <span class="status-text" id="status-text" data-i18n="statusChecking">正在连接服务...</span>
+  <a class="install-link" id="install-link" data-i18n="installServer" href="#" target="_blank">安装服务 →</a>
+</div>
+
+<!-- Tabs -->
+<div class="tabs">
+  <div class="tab active" data-tab="detect">
+    <span data-i18n="tabDetect">检测</span>
+    <span class="tab-badge" id="detect-count"></span>
+  </div>
+  <div class="tab" data-tab="download">
+    <span data-i18n="tabDownload">下载</span>
+  </div>
+  <div class="tab" data-tab="tasks">
+    <span data-i18n="tabTasks">任务</span>
+    <span class="tab-badge" id="task-count"></span>
+  </div>
+  <div class="tab" data-tab="playlist">
+    <span data-i18n="tabPlaylist">播放列表</span>
+  </div>
+</div>
+
+<!-- Content -->
+<div class="tab-content">
+
+  <!-- Detect -->
+  <div class="tab-panel active" id="panel-detect">
+    <div class="detect-header">
+      <span class="detect-site" id="detect-site-label"></span>
+      <div class="detect-opts" id="detect-options">
+        <button class="dl-btn" id="btn-dl-all" data-i18n="downloadAll">⬇ 全部下载</button>
+        <button class="dl-btn" id="btn-rescan" data-i18n="rescan">🔄 重新扫描</button>
+      </div>
+    </div>
+    <div class="scanning-indicator" id="scanning-indicator">
+      <span class="spin">⟳</span>
+      <span data-i18n="scanning">正在扫描...</span>
+    </div>
+    <div class="video-list" id="video-list"></div>
+    <div class="empty-detect" id="empty-detect">
+      <div class="empty-icon">🔍</div>
+      <div data-i18n="noVideos">当前页面未检测到视频</div>
+    </div>
+  </div>
+
+  <!-- Download -->
+  <div class="tab-panel" id="panel-download">
+    <div class="dl-section">
+      <div class="dl-section-title">URL</div>
+      <div class="url-input-wrap">
+        <input class="url-input" id="url-input" type="url" data-i18n-ph="urlPlaceholder" placeholder="粘贴视频链接...">
+        <button class="btn btn-secondary btn-sm" id="btn-analyze" data-i18n="analyzeBtn">🔍 解析</button>
+      </div>
+      <div class="analyze-result" id="analyze-result">
+        <div class="ar-title" id="ar-title"></div>
+        <div class="ar-meta"  id="ar-meta"></div>
+      </div>
+    </div>
+    <div class="dl-section">
+      <div class="dl-section-title">Quality</div>
+      <div class="quality-grid" id="quality-grid">
+        <button class="q-btn active" data-q="best"><span class="q-icon">⭐</span><span data-i18n="qualityBest">最高画质</span></button>
+        <button class="q-btn" data-q="4k"><span class="q-icon">🔥</span><span data-i18n="quality4k">4K</span></button>
+        <button class="q-btn" data-q="1080p"><span class="q-icon">🎬</span><span data-i18n="quality1080">1080p</span></button>
+        <button class="q-btn" data-q="720p"><span class="q-icon">📺</span><span data-i18n="quality720">720p</span></button>
+        <button class="q-btn" data-q="480p"><span class="q-icon">📱</span><span data-i18n="quality480">480p</span></button>
+        <button class="q-btn" data-q="audio"><span class="q-icon">🎵</span><span data-i18n="qualityAudio">仅音频</span></button>
+      </div>
+      <div class="format-selector" id="format-selector">
+        <div class="format-list" id="format-list"></div>
+      </div>
+    </div>
+    <div class="dl-section">
+      <div class="toggle-row">
+        <span class="toggle-label" data-i18n="removeWatermark">自动去水印</span>
+        <div class="toggle on" id="toggle-watermark"></div>
+      </div>
+      <div class="toggle-row" style="margin-top:6px">
+        <span class="toggle-label" data-i18n="embedSubs">嵌入字幕</span>
+        <div class="toggle" id="toggle-subs"></div>
+      </div>
+    </div>
+    <div class="dl-section" style="display:flex;gap:8px;padding-top:8px">
+      <button class="btn btn-primary" id="btn-dl-url" style="flex:1" data-i18n="downloadNow">⬇ 立即下载</button>
+      <button class="btn btn-secondary btn-sm" id="btn-dl-page" data-i18n="dlPage">📄 当前页</button>
+    </div>
+  </div>
+
+  <!-- Tasks -->
+  <div class="tab-panel" id="panel-tasks">
+    <div class="tasks-toolbar">
+      <button class="filter-btn active" data-filter="all"       data-i18n="taskFilterAll">全部</button>
+      <button class="filter-btn"        data-filter="active"    data-i18n="taskFilterActive">下载中</button>
+      <button class="filter-btn"        data-filter="completed" data-i18n="taskFilterDone">已完成</button>
+      <button class="filter-btn"        data-filter="error"     data-i18n="taskFilterError">失败/取消</button>
+      <div class="toolbar-spacer"></div>
+      <div class="sse-dot" id="sse-dot" title="Live"></div>
+      <button class="icon-btn" id="btn-select-tasks" style="font-size:10px" data-i18n="selectTasks">✓ 多选</button>
+      <button class="icon-btn" id="btn-clear-history" data-i18n="clearHistory">🗑</button>
+    </div>
+    <div class="task-list" id="task-list">
+      <div class="empty-tasks" id="empty-tasks">
+        <div class="empty-icon">📭</div>
+        <div data-i18n="noTasks">暂无下载任务</div>
+      </div>
+    </div>
+    <div class="batch-bar" id="batch-bar">
+      <span class="batch-count" id="batch-count-text"></span>
+      <button class="btn btn-secondary btn-sm" id="btn-select-all" data-i18n="selectAll">全选</button>
+      <button class="btn btn-danger btn-sm"    id="btn-batch-delete" data-i18n="batchDelete">删除所选</button>
+      <button class="btn btn-secondary btn-sm" id="btn-exit-select" data-i18n="exitSelect">✕ 退出</button>
+    </div>
+  </div>
+
+  <!-- Playlist -->
+  <div class="tab-panel" id="panel-playlist">
+    <div class="pl-section">
+      <div class="dl-section-title" data-i18n="playlistUrl">播放列表链接</div>
+      <div class="url-input-wrap" style="margin-bottom:8px">
+        <input class="url-input" id="playlist-url-input" type="url" placeholder="https://...">
+        <button class="btn btn-secondary btn-sm" id="btn-analyze-pl" data-i18n="analyzePl">🔍 解析</button>
+      </div>
+      <div id="pl-result" style="display:none">
+        <div id="pl-title" style="font-size:12px;font-weight:600;margin-bottom:6px"></div>
+        <span class="pl-select-all" id="pl-select-all" data-i18n="selectAll">全选</span>
+        <div class="pl-list" id="pl-list"></div>
+        <div style="margin-top:10px;display:flex;gap:8px">
+          <button class="btn btn-primary" id="btn-dl-playlist" style="flex:1" data-i18n="downloadSelected">⬇ 下载所选</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Confirm Dialog -->
+<div class="dialog-overlay" id="confirm-dialog">
+  <div class="dialog-box">
+    <div class="dialog-icon" id="dialog-icon">⚠️</div>
+    <div class="dialog-title" id="dialog-title"></div>
+    <div class="dialog-desc"  id="dialog-desc"></div>
+    <div class="dialog-btns">
+      <button class="btn btn-secondary btn-sm" id="dialog-cancel-btn"  data-i18n="dialogCancel">取消</button>
+      <button class="btn btn-primary btn-sm"   id="dialog-confirm-btn" data-i18n="dialogConfirm">确认</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="notify-toast" id="notify-toast"></div>
+
+<script src="popup.js"></script>
+</body>
+</html>
